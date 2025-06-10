@@ -1,0 +1,48 @@
+@import url('s1.css');
+
+.map-section {
+  text-align: center;
+  background-color: #1c1c1c;
+  padding: 40px 20px;
+}
+
+.map-section h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.map-section img {
+  width: 80%;
+  max-width: 550px;
+  border-radius: 12px;
+  border: 2px solid #fff;
+}
+
+.addresses {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 40px;
+  background-color: #222;
+}
+
+.address-card {
+  background: #333;
+  color: white;
+  margin: 20px;
+  padding: 30px;
+  border-radius: 10px;
+  width: 250px;
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
+  text-align: center;
+}
+
+.address-card h3 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.address-card p {
+  color: #ccc;
+  font-size: 1em;
+}

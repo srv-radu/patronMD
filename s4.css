@@ -1,0 +1,65 @@
+@import url('s1.css');
+
+.contact-info {
+  background: #1c1c1c;
+  color: white;
+  padding: 40px;
+  text-align: center;
+}
+
+.contact-info h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.contact-item {
+  margin: 10px 0;
+  font-size: 1.2em;
+  color: #ccc;
+}
+
+.social-media {
+  background: #222;
+  color: white;
+  padding: 40px;
+  text-align: center;
+}
+
+.social-media h3 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+.social-links a {
+  display: inline-block;
+  margin: 0 15px;
+  text-decoration: none;
+  color: white;
+  background: #444;
+  padding: 10px 20px;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.social-links a:hover {
+  background: #666;
+}
+
+.support {
+  background: #1c1c1c;
+  color: white;
+  padding: 40px;
+  text-align: center;
+}
+
+.support h3 {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+}
+
+.support p {
+  max-width: 600px;
+  margin: auto;
+  color: #ccc;
+  font-size: 1.1em;
+}

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Magazin - patron.md</title>
+  <link rel="stylesheet" href="s2.css">
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <a href="index.html" class="logo-text"><img src="images/log.jpg" width="290" height="100" alt="Patron"></a>
+    </div>
+    <nav>
+      <a href="magazin.html">Magazin</a>
+      <a href="locatii.html">Locații</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <section class="menu">
+    <h2>Categorii</h2>
+    <div class="buttons">
+      <a href="#arme">Arme de vânătoare</a>
+      <a href="#echipament">Echipament</a>
+      <a href="#munitie">Muniție</a>
+    </div>
+  </section>
+
+  <section id="arme" class="products">
+    <h3>Arme de Vânătoare</h3>
+    <div class="product-card">
+      <img src="images/blase.jpg" alt="armă">
+      <h4>Pușcă Blaser R8</h4>
+        <p>Tip armă: Pușcă cu repetiție (bolt rectiliniu)</p>
+        <p>Sistem de închidere: Rectiliniu, bolt glisant (foarte rapid)</p>
+        <p>Greutate: 3.0 – 3.8 kg (în funcție de calibru și configurație)</p>
+        <p>Calibre disponibile: Variază, de la .223 Rem la .375 H&H Mag</p>
+        <p>Siguranță: Sistem de siguranță manual, cu armare liniară</p>
+        <p>Țeavă: Interșanjabilă, de precizie, cu profil variabil</p>
+        <p>Patină de recul: Amortizor de recul integrat (opțional)</p>
+        <p>Pat: Lemn de nuc (grad înalt) sau sintetic</p>
+      <button onclick="deschidePopup('Pușcă Blaser R8')">Cumpără</button>
+    </div>
+    <div class="product-card">
+      <img src="images/Benelli-Argo-E.jpg" alt="armă">
+      <h4>Pușcă Benelli Argo-E</h4>
+        <p>Tip armă: Pușcă semiautomată (gaz-operată)</p>
+        <p>Calibre disponibile: .30-06 Springfield, .308 Winchester, 9.3x62, .300 Win. Mag</p>
+        <p>Capacitate magazie: 2, 4 sau 5 cartușe (în funcție de calibru și legislație)</p>
+        <p>Lungime țeavă: 51 cm sau 56 cm</p>
+        <p>Greutate: Aproximativ 3.3 kg</p>
+        <p>Sistem de siguranță: Ambidextru</p>
+        <p>Pat: Sintetic sau lemn (disponibil în diverse finisaje)</p>
+        <p>Sistem de ochire: Șină pentru montare optică</p>
+      <button onclick="deschidePopup('Pușcă Benelli Argo-E')">Cumpără</button>
+    </div>
+
+    <div class="product-card">
+      <img src="images/Browning-BAR-Mk3.jpg" alt="armă">
+      <h4>Pușcă Browning BAR Mk3</h4>
+        <p>Tip armă: Pușcă semiautomată</p>
+        <p>Calibre disponibile: .30-06 Springfield, .308 Winchester, .300 Win. Mag, 9.3x62, etc.</p>
+        <p>Sistem de operare: Piston cu gaz, autoreglabil</p>
+        <p>Capacitate magazie: 2, 4 sau 5 cartușe (în funcție de calibru și reglementări)</p>
+        <p>Lungime țeavă: 53 cm sau 56 cm</p>
+        <p>Greutate: Aproximativ 3.2 – 3.4 kg (în funcție de model)</p>
+        <p>Pat: Lemn sau sintetic (finisaje diferite)</p>
+        <p>Sistem de siguranță: Buton, ușor accesibil</p>
+      <button onclick="deschidePopup('Pușcă Browning BAR Mk3')">Cumpără</button>
+    </div>
+
+  </section>
+
+  <section id="echipament" class="products">
+    <h3>Echipament</h3>
+    <div class="product-card">
+      <img src="images/binoclu.jpg" alt="binoclu">
+      <h4>Binoclu ZEISS Conquest HD 10x42</h4>
+        <p>Mărire: 10x</p>
+        <p>Diametru obiectiv: 42 mm</p>
+        <p>Câmp vizual la 1000m: 115 m</p>
+        <p>Greutate: 795 g</p>
+        <p>Tip prismă: Schmidt-Pechan</p>
+        <p>Rezistent la apă: Da (până la 400 mbar)</p>
+        <p>Material lentile: Sticlă HD cu tratament multistrat</p>
+        <p>Utilizare: Vânătoare, observarea naturii</p>
+      <button onclick="deschidePopup('Binoclu ZEISS Conquest HD 10x42')">Cumpără</button>
+    </div>
+    <div class="product-card">
+      <img src="images/rucsac.jpeg" alt="rucsac">
+      <h4>Rucsac de vânătoare Kuiu Icon Pro 5200</h4>
+        <p>Capacitate: 5200 cu in. (aproximativ 85 litri)</p>
+        <p>Greutate: Aproximativ 2.5 kg (cadru și sac)</p>
+        <p>Material: CORDURA® 500D (rezistent la abraziune și apă)</p>
+        <p>Sistem de cadru: Aluminiu, reglabil pentru diferite lungimi de trunchi</p>
+        <p>Culoare: Verde camo, maro, sau alte modele de camuflaj specifice vânătorii</p>
+        <p>Caracteristici: Compartiment principal spațios, buzunare multiple, sistem de atașare pentru armă/arc</p>
+        <p>Ideal pentru: Expedii de vânătoare pe termen mediu spre lung, transportul vânatului</p>
+      <button onclick="deschidePopup('Rucsac de vânătoare Kuiu Icon Pro 5200')">Cumpără</button>
+    </div>
+    <div class="product-card">
+      <img src="images/Lanterna.jpg" alt="lanterna">
+      <h4>Lanterna Fenix TK22 V2.0</h4>
+        <p>Putere maximă: 1600 lumeni</p>
+        <p>Distanța fasciculului: 400 metri</p>
+        <p>Tip LED: Luminus SST40</p>
+        <p>Acumulator: 1 x 21700 Li-ion (inclus)</p>
+        <p>Rezistență la apă: IP68 (submersibilă până la 2 metri)</p>
+        <p>Rezistență la impact: 1 metru</p>
+        <p>Funcții: 5 nivele de luminozitate + Strobe</p>
+        <p>Utilizare: Vânătoare, patrulare, camping</p>
+      <button onclick="deschidePopup('Lanterna Fenix TK22 V2.0')">Cumpără</button>
+    </div>
+  </section>
+
+  <section id="munitie" class="products">
+    <h3>Muniție</h3>
+    <div class="product-card">
+      <img src="images/Norma_Oryx.jpg" alt="muniție">
+      <h4>Muniție Norma Oryx .30-06 Spr.</h4>
+        <p>Calibru: .30-06 Springfield</p>
+        <p>Greutate glonț: 11.7 g (180 grani)</p>
+        <p>Tip glonț: Bonded, cu vârf rotund</p>
+        <p>Coeficient balistic: .289</p>
+        <p>Utilizare: Vânătoare de vânat mare (mistreț, cerb, urs)</p>
+        <p>Penetrare: Excelentă</p>
+        <p>Deformare: Controlată, pentru energie maximă</p>
+        <p>Ambalaj: Cutie de 20 buc.</p>
+      <button onclick="deschidePopup('Muniție Norma Oryx .30-06 Spr.')">Cumpără</button>
+    </div>
+    <div class="product-card">
+      <img src="images/CCI-Mini-Mag.jpg" alt="muniție">
+      <h4>Muniție CCI Mini-Mag .22LR</h4>
+        <p>Calibru: .22 Long Rifle</p>
+        <p>Greutate glonț: 2.6 g (40 grani)</p>
+        <p>Tip glonț: Solid Point sau Copper Plated Round Nose</p>
+        <p>Viteză: Standard Velocity sau High Velocity</p>
+        <p>Utilizare: Tir sportiv, vânătoare de vânat mic</p>
+        <p>Precizie: Foarte bună</p>
+        <p>Ambalaj: Cutie de 100 buc.</p>
+      <button onclick="deschidePopup('Muniție CCI Mini-Mag .22LR')">Cumpără</button>
+    </div>
+    <div class="product-card">
+      <img src="images/slug.jpg" alt="muniție">
+      <h4>Muniție FIOCCHI SLUG 12GA</h4>
+        <p>Calibru: 12GA (calibrul 12)</p>
+        <p>Tip glonț: Slug (proiectil unic)</p>
+        <p>Greutate glonț: 32 g (aproximativ)</p>
+        <p>Utilizare: Vânătoare de vânat mare, tir la țintă</p>
+        <p>Viteză: Înaltă, pentru energie mare</p>
+        <p>Recul: Moderat spre puternic</p>
+        <p>Ambalaj: Cutie de 10 buc.</p>
+      <button onclick="deschidePopup('Muniție FIOCCHI SLUG 12GA')">Cumpără</button>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 patron.md. Toate drepturile rezervate.
+  </footer>
+
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <span onclick="inchidePopup()" class="close-btn">&times;</span>
+      <form id="formularComanda" onsubmit="return valideazaSiTrimiteComanda(event)">
+        <h3>Plasare comandă</h3>
+        <input type="hidden" name="produs" id="produsSelectat"> <input type="text" name="nume" placeholder="Nume" required><br>
+        <input type="text" name="prenume" placeholder="Prenume" required><br>
+        <input type="email" name="email" placeholder="Email" required><br>
+        <input type="tel" name="telefon" placeholder="Telefon" required><br>
+        <input type="text" name="adresa" placeholder="Adresă livrare" required><br>
+        <input type="number" name="cantitate" placeholder="Cantitate" min="1" required><br>
+        <button type="submit">Trimite comanda</button>
+        <p id="confirmare" style="display:none; color: lime; font-weight: bold; margin-top: 10px;">
+          </p>
+        <p id="eroareComanda" style="display:none; color: red; font-weight: bold; margin-top: 10px;">
+          </p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Definește URL-ul endpoint-ului API pentru comenzi
+    const API_ORDERS_URL = 'http://localhost:3000/api/orders';
+
+    // Funcția pentru deschiderea popup-ului de comandă
+    function deschidePopup(produs) {
+      document.getElementById('popup').style.display = 'flex';
+      document.getElementById('produsSelectat').value = produs;
+      document.getElementById('confirmare').style.display = 'none'; // Ascunde mesajul de confirmare anterior
+      document.getElementById('eroareComanda').style.display = 'none'; // Ascunde mesajul de eroare anterior
+      document.getElementById('formularComanda').reset(); // Resetează formularul la deschidere
+    }
+
+    // Funcția pentru închiderea popup-ului
+    function inchidePopup() {
+      document.getElementById('popup').style.display = 'none';
+      document.getElementById('confirmare').style.display = 'none'; // Asigură-te că ascunzi și confirmarea
+      document.getElementById('eroareComanda').style.display = 'none'; // Asigură-te că ascunzi și eroarea
+    }
+
+    // NOU: Funcția asincronă pentru validarea și trimiterea comenzii către backend
+    async function valideazaSiTrimiteComanda(event) {
+      event.preventDefault(); // Oprește comportamentul implicit de trimitere a formularului (care ar fi căutat un fișier PHP)
+
+      const form = event.target;
+      const formData = new FormData(form);
+      const data = {};
+      // Colectează toate datele din formular într-un obiect JavaScript
+      for (let [key, value] of formData.entries()) {
+        data[key] = value;
+      }
+
+      // Asigură-te că 'cantitate' este un număr
+      data.cantitate = parseInt(data.cantitate, 10);
+
+      const confirmareMesaj = document.getElementById('confirmare');
+      const eroareMesaj = document.getElementById('eroareComanda');
+
+      // Resetează mesajele de stare
+      confirmareMesaj.style.display = 'none';
+      eroareMesaj.style.display = 'none';
+      eroareMesaj.textContent = ''; // Golește textul erorii
+
+      try {
+        // Trimite datele către backend folosind fetch API
+        const response = await fetch(API_ORDERS_URL, {
+          method: 'POST', // Tipul cererii HTTP
+          headers: {
+            'Content-Type': 'application/json' // Specifică că trimitem JSON
+          },
+          body: JSON.stringify(data) // Convertește obiectul JavaScript în șir JSON
+        });
+
+        if (!response.ok) { // Dacă răspunsul nu este OK (status 2xx)
+          const errorData = await response.json(); // Încearcă să extragi mesajul de eroare de la server
+          throw new Error(errorData.error || `Eroare la trimiterea comenzii: Status ${response.status}`);
+        }
+
+        const result = await response.json(); // Parsează răspunsul JSON de la server
+        confirmareMesaj.textContent = result.message || 'Comanda a fost plasată cu succes!';
+        confirmareMesaj.style.display = 'block';
+
+        // Opțional: Golește formularul după trimiterea cu succes
+        form.reset();
+
+      } catch (error) {
+        console.error('Eroare la plasarea comenzii:', error);
+        eroareMesaj.textContent = 'Eroare la plasarea comenzii: ' + error.message;
+        eroareMesaj.style.display = 'block';
+      }
+
+      return false; // Oprește orice altă procesare a formularului (e.g., reîncărcarea paginii)
+    }
+  </script>
+</body>
+</html>
