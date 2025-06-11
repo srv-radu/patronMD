@@ -186,62 +186,61 @@
     function deschidePopup(produs) {
       document.getElementById('popup').style.display = 'flex';
       document.getElementById('produsSelectat').value = produs;
-      document.getElementById('confirmare').style.display = 'none'; // Ascunde mesajul de confirmare anterior
-      document.getElementById('eroareComanda').style.display = 'none'; // Ascunde mesajul de eroare anterior
-      document.getElementById('formularComanda').reset(); // Resetează formularul la deschidere
+      document.getElementById('confirmare').style.display = 'none';
+      document.getElementById('eroareComanda').style.display = 'none';
+      document.getElementById('formularComanda').reset();
     }
 
     // Funcția pentru închiderea popup-ului
     function inchidePopup() {
       document.getElementById('popup').style.display = 'none';
-      document.getElementById('confirmare').style.display = 'none'; // Asigură-te că ascunzi și confirmarea
-      document.getElementById('eroareComanda').style.display = 'none'; // Asigură-te că ascunzi și eroarea
+      document.getElementById('confirmare').style.display = 'none';
+      document.getElementById('eroareComanda').style.display = 'none';
     }
 
-    // NOU: Funcția asincronă pentru validarea și trimiterea comenzii către backend
+    // Funcția asincronă pentru validarea și trimiterea comenzii către backend
     async function valideazaSiTrimiteComanda(event) {
-      event.preventDefault(); // Oprește comportamentul implicit de trimitere a formularului (care ar fi căutat un fișier PHP)
+      event.preventDefault();
 
       const form = event.target;
       const formData = new FormData(form);
       const data = {};
-      // Colectează toate datele din formular într-un obiect JavaScript
       for (let [key, value] of formData.entries()) {
         data[key] = value;
       }
 
-      // Asigură-te că 'cantitate' este un număr
       data.cantitate = parseInt(data.cantitate, 10);
 
       const confirmareMesaj = document.getElementById('confirmare');
       const eroareMesaj = document.getElementById('eroareComanda');
 
-      // Resetează mesajele de stare
       confirmareMesaj.style.display = 'none';
       eroareMesaj.style.display = 'none';
-      eroareMesaj.textContent = ''; // Golește textul erorii
 
       try {
-        // Trimite datele către backend folosind fetch API
         const response = await fetch(API_ORDERS_URL, {
-          method: 'POST', // Tipul cererii HTTP
+          method: 'POST',
           headers: {
-            'Content-Type': 'application/json' // Specifică că trimitem JSON
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
           },
-          body: JSON.stringify(data) // Convertește obiectul JavaScript în șir JSON
+          body: JSON.stringify(data)
         });
 
-        if (!response.ok) { // Dacă răspunsul nu este OK (status 2xx)
-          const errorData = await response.json(); // Încearcă să extragi mesajul de eroare de la server
-          throw new Error(errorData.error || `Eroare la trimiterea comenzii: Status ${response.status}`);
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.error || `Eroare la trimiterea comenzii: Status ${response.status}`);
         }
 
-        const result = await response.json(); // Parsează răspunsul JSON de la server
         confirmareMesaj.textContent = result.message || 'Comanda a fost plasată cu succes!';
         confirmareMesaj.style.display = 'block';
-
-        // Opțional: Golește formularul după trimiterea cu succes
         form.reset();
+        
+        // Opțional: Închide popup-ul după 3 secunde
+        setTimeout(() => {
+          inchidePopup();
+        }, 3000);
 
       } catch (error) {
         console.error('Eroare la plasarea comenzii:', error);
@@ -249,7 +248,7 @@
         eroareMesaj.style.display = 'block';
       }
 
-      return false; // Oprește orice altă procesare a formularului (e.g., reîncărcarea paginii)
+      return false;
     }
   </script>
 </body>

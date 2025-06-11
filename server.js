@@ -1,35 +1,58 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
-const cors = require('cors'); // Necesare pentru a permite browserului să facă cereri către server
+const cors = require('cors');
+const path = require('path');
 
 const app = express();
-const port = '*'; // Portul pe care va rula serverul tău backend
+const port = 3000; // Set a specific port number
 
-// Middleware pentru a permite cereri de la domenii diferite (CORS)
-app.use(cors());
-// Middleware pentru a parsa corpul cererilor JSON (de la frontend)
+// Configure CORS with specific options
+app.use(cors({
+  origin: '*', // In production, you should specify exact origins
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type']
+}));
+
+// Middleware for parsing JSON bodies
 app.use(express.json());
 
-// Conectează-te la baza de date SQLite. Fișierul 'mydb.sqlite' va fi creat dacă nu există.
-const db = new sqlite3.Database('./mydb.sqlite', (err) => {
+// Define database path
+const dbPath = path.join(__dirname, 'database', 'mydb.sqlite');
+
+// Ensure database directory exists
+const fs = require('fs');
+if (!fs.existsSync(path.dirname(dbPath))) {
+  fs.mkdirSync(path.dirname(dbPath), { recursive: true });
+}
+
+// Connect to SQLite database
+const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
-    console.error('Eroare la conectarea la baza de date:', err.message);
-  } else {
-    console.log('Conectat la baza de date SQLite.');
-    // Creează tabela 'users' dacă nu există
+    console.error('Error connecting to database:', err.message);
+    return;
+  }
+  console.log('Connected to SQLite database at:', dbPath);
+  
+  // Enable foreign keys
+  db.run('PRAGMA foreign_keys = ON');
+
+  // Create tables with better structure
+  db.serialize(() => {
+    // Create users table
     db.run(`CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
-      email TEXT UNIQUE NOT NULL
+      email TEXT UNIQUE NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )`, (err) => {
       if (err) {
-        console.error('Eroare la crearea tabelei users:', err.message);
+        console.error('Error creating users table:', err.message);
       } else {
-        console.log('Tabela users este gata.');
+        console.log('Users table is ready');
       }
     });
 
-    // NOU: Creează tabela 'orders' (comenzi) dacă nu există
+    // Create orders table with foreign key reference
     db.run(`CREATE TABLE IF NOT EXISTS orders (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       product TEXT NOT NULL,
@@ -39,15 +62,17 @@ const db = new sqlite3.Database('./mydb.sqlite', (err) => {
       telefon TEXT NOT NULL,
       adresa TEXT NOT NULL,
       cantitate INTEGER NOT NULL,
-      order_date TEXT DEFAULT CURRENT_TIMESTAMP
+      status TEXT DEFAULT 'pending',
+      order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (email) REFERENCES users(email)
     )`, (err) => {
       if (err) {
-        console.error('Eroare la crearea tabelei orders:', err.message);
+        console.error('Error creating orders table:', err.message);
       } else {
-        console.log('Tabela orders este gata.');
+        console.log('Orders table is ready');
       }
     });
-  }
+  });
 });
 
 // --- API Endpoints pentru Utilizatori (conform exemplului tău inițial) ---
@@ -67,55 +92,87 @@ app.get('/api/users', (req, res) => {
 app.post('/api/users', (req, res) => {
   const { name, email } = req.body;
   if (!name || !email) {
-    return res.status(400).json({ error: 'Numele și emailul sunt obligatorii.' });
+    return res.status(400).json({ error: 'Name and email are required.' });
   }
-  db.run('INSERT INTO users (name, email) VALUES (?, ?)', [name, email], function (err) {
-    if (err) {
-      // Eroare dacă emailul este deja înregistrat (din cauza UNIQUE NOT NULL)
-      if (err.message.includes('SQLITE_CONSTRAINT: UNIQUE constraint failed: users.email')) {
-        res.status(409).json({ error: 'Acest email este deja înregistrat.' });
-      } else {
-        res.status(500).json({ error: err.message });
+  
+  db.run('INSERT INTO users (name, email) VALUES (?, ?)', 
+    [name, email], 
+    function(err) {
+      if (err) {
+        if (err.message.includes('UNIQUE constraint failed')) {
+          res.status(409).json({ error: 'Email already registered.' });
+        } else {
+          res.status(500).json({ error: err.message });
+        }
+        return;
       }
-      return;
+      res.status(201).json({ 
+        message: 'User added successfully', 
+        id: this.lastID 
+      });
     }
-    res.status(201).json({ message: 'Utilizator adăugat cu succes', id: this.lastID });
-  });
+  );
 });
 
 // --- NOU: API Endpoint pentru Comenzi ---
 
 // Ruta POST pentru a plasa o comandă nouă
 app.post('/api/orders', (req, res) => {
-  // Extrage datele din corpul cererii (trimise de formularul din magazin.html)
   const { produs, nume, prenume, email, telefon, adresa, cantitate } = req.body;
 
-  // Validare simplă a datelor primite
   if (!produs || !nume || !prenume || !email || !telefon || !adresa || !cantitate) {
-    return res.status(400).json({ error: 'Toate câmpurile (produs, nume, prenume, email, telefon, adresa, cantitate) sunt obligatorii.' });
-  }
-  if (isNaN(cantitate) || cantitate < 1) {
-    return res.status(400).json({ error: 'Cantitatea trebuie să fie un număr valid și pozitiv.' });
+    return res.status(400).json({ 
+      error: 'All fields are required.' 
+    });
   }
 
-  // Inserarea datelor în tabela 'orders'
+  if (isNaN(cantitate) || cantitate < 1) {
+    return res.status(400).json({ 
+      error: 'Quantity must be a positive number.' 
+    });
+  }
+
   db.run(
-    `INSERT INTO orders (product, nume, prenume, email, telefon, adresa, cantitate) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+    `INSERT INTO orders (product, nume, prenume, email, telefon, adresa, cantitate) 
+     VALUES (?, ?, ?, ?, ?, ?, ?)`,
     [produs, nume, prenume, email, telefon, adresa, cantitate],
-    function (err) {
+    function(err) {
       if (err) {
-        console.error('Eroare la inserarea comenzii:', err.message);
-        res.status(500).json({ error: 'Eroare server la salvarea comenzii: ' + err.message });
+        console.error('Error inserting order:', err.message);
+        res.status(500).json({ 
+          error: 'Server error while saving order: ' + err.message 
+        });
         return;
       }
-      // Trimite un răspuns de succes către frontend
-      res.status(201).json({ message: 'Comanda a fost plasată cu succes!', orderId: this.lastID });
+      res.status(201).json({ 
+        message: 'Order placed successfully!', 
+        orderId: this.lastID 
+      });
     }
   );
 });
 
-// Pornirea serverului
+// Get all orders
+app.get('/api/orders', (req, res) => {
+  db.all('SELECT * FROM orders ORDER BY order_date DESC', [], (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json({ orders: rows });
+  });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ 
+    error: 'Something went wrong!' 
+  });
+});
+
+// Start server
 app.listen(port, () => {
-  console.log(`Serverul rulează pe http://localhost:${port}`);
-  console.log('Asigură-te că rulezi și fișierele HTML în browser.');
+  console.log(`Server running at http://localhost:${port}`);
+  console.log('Database location:', dbPath);
 });
